@@ -33,6 +33,15 @@ search engine. You can search across multiple fields in your relational
 database, combine the searches with other lookups, use different language
 configurations and weightings, and rank the results by relevance.
 
+Template-based widget rendering
+-------------------------------
+
+To ease customizing widgets, form widget rendering is now done using the
+template system rather than in Python. See :doc:`/ref/forms/renderers`.
+
+You may need to adjust any custom widgets that you've written for a few
+:ref:`backwards incompatible changes <template-widget-incompatibilities-1-10>`.
+
 Minor features
 --------------
 
@@ -732,6 +741,21 @@ Two new settings help mitigate denial-of-service attacks via large requests:
 Applications that receive unusually large form posts may need to tune these
 settings.
 
+.. _template-widget-incompatibilities-1-10:
+
+Changes due to the introduction of template-based widget rendering
+------------------------------------------------------------------
+
+Some undocumented classes in ``django.forms.widgets`` are removed:
+
+* ``SubWidget``
+* ``RendererMixin``, ``ChoiceFieldRenderer``, ``RadioFieldRenderer``,
+  ``CheckboxFieldRenderer``
+* ``ChoiceInput``, ``RadioChoiceInput``, ``CheckboxChoiceInput``
+
+The ``Widget.format_output()`` method is removed. Use a custom widget template
+instead.
+
 Miscellaneous
 -------------
 
@@ -1078,6 +1102,10 @@ Miscellaneous
   are deprecated in favor of performing this work in
   :meth:`Storage.generate_filename()
   <django.core.files.storage.Storage.generate_filename>`).
+
+* The ``renderer`` argument is added to the :meth:`Widget.render()
+  <django.forms.Widget.render>` method. Methods that don't accept that argument
+  will work through a deprecation period.
 
 .. _removed-features-1.10:
 

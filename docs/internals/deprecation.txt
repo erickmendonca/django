@@ -175,6 +175,9 @@ details on these changes.
 * The ``escape`` filter will change to use
   ``django.utils.html.conditional_escape()``.
 
+* Support for ``Widget.render()`` methods without the ``renderer`` argument
+  will be removed.
+
 .. _deprecation-removed-in-1.10:
 
 1.10
